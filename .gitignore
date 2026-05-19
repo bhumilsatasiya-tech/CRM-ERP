@@ -1,0 +1,73 @@
+# Project-root .gitignore for E:\CRM+ERP
+# Prevents accidental commits of secrets, build output, and local clutter.
+
+# ---- secrets --------------------------------------------------------------
+backend/.env
+backend/.env.backup
+backend/.env.local
+backend/.env.production
+frontend/.env
+frontend/.env.local
+frontend/.env.production
+Weblive/env/*.local
+Weblive/initial-dump.sql
+Weblive/initial-dump.sql.gz
+*.pem
+*.key
+*.crt
+secrets/
+
+# ---- dependencies ---------------------------------------------------------
+backend/vendor/
+frontend/node_modules/
+node_modules/
+
+# ---- build output ---------------------------------------------------------
+frontend/dist/
+frontend/build/
+backend/public/hot
+backend/public/storage
+
+# ---- Laravel runtime ------------------------------------------------------
+backend/storage/logs/*.log
+backend/storage/framework/cache/data/*
+backend/storage/framework/sessions/*
+backend/storage/framework/views/*.php
+backend/storage/framework/testing/*
+backend/storage/app/public/*
+backend/bootstrap/cache/*.php
+!backend/bootstrap/cache/.gitignore
+
+# ---- editor / OS ----------------------------------------------------------
+.vscode/
+.idea/
+*.swp
+*.swo
+Thumbs.db
+.DS_Store
+desktop.ini
+
+# ---- logs / tmp -----------------------------------------------------------
+*.log
+*.tmp
+npm-debug.log*
+yarn-error.log
+.phpunit.result.cache
+
+# ---- local DB dumps -------------------------------------------------------
+*.sql
+*.sql.gz
+!backend/database/seeders/**/*.sql
+!docs/**/*.sql
+
+# ---- misc -----------------------------------------------------------------
+.env
+.env.*
+!.env.example
+
+# ---- local-only noise (not for GitHub) -----------------------------------
+.claude/
+_test_write.txt
+CRM+ERP.zip
+*.zip
+!Weblive/docs/**/*.zip

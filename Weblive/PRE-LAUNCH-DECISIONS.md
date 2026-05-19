@@ -1,0 +1,188 @@
+# Pre-Launch Decisions
+
+Fill in the right-hand column. Nothing in `DEPLOYMENT_GUIDE.md` works until
+these are settled. Once decided, search-and-replace the placeholder tokens
+across the env files and nginx configs.
+
+---
+
+## 1. Domain
+
+| Question | Your answer |
+|---|---|
+| Root domain you'll use | `yourdomain.com` |
+| Subdomain for the React app | `app.yourdomain.com` (recommended) |
+| Subdomain for the Laravel API | `api.yourdomain.com` (recommended) |
+| Where the domain is registered | Namecheap / Cloudflare / GoDaddy / … |
+| Will you use Cloudflare in front? | Yes (recommended — free CDN + DDoS) / No |
+
+**DNS records to add** (do this once you have the server IP):
+
+```
+Type   Name   Value              TTL
+A      app    <SERVER_IP>        Auto
+A      api    <SERVER_IP>        Auto
+A      @      <SERVER_IP>        Auto  (optional — root → app redirect)
+```
+
+If using Cloudflare, set proxy status to **DNS only (grey cloud)** *until*
+SSL is issued by certbot, then flip to **Proxied (orange cloud)**.
+
+---
+
+## 2. Server / hosting
+
+The whole stack fits comfortably on a single VPS to start. Sizing rec:
+
+| Concurrent users | vCPU | RAM | Disk | Examples |
+|---|---|---|---|---|
+| 1–10 (pilot) | 2 | 4 GB | 50 GB SSD | Hetzner CX22, DO Basic 4GB, Contabo VPS S |
+| 10–50 | 4 | 8 GB | 100 GB SSD | Hetzner CX32, DO 8GB |
+| 50–200 | 4–8 | 16 GB | 160 GB SSD | Hetzner CCX23, DO 16GB |
+
+| Question | Your answer |
+|---|---|
+| Provider | Hetzner / DigitalOcean / Vultr / Contabo / AWS Lightsail / … |
+| Region | Closest to your users (e.g. Hetzner Falkenstein, DO Bangalore) |
+| OS | **Ubuntu 22.04 LTS** (the scripts assume this) |
+| Size | 2 vCPU / 4 GB RAM to start |
+| Server IP | `___.___.___.___` |
+| SSH key uploaded? | Yes / No |
+
+**Why Ubuntu 22.04?** It's still in standard LTS support until April 2027,
+the apt repos have PHP 8.1, MySQL 8.0, Nginx 1.18, Redis 6.0, Node 20 —
+everything we need without third-party PPAs.
+
+---
+
+## 3. Database
+
+| Question | Your answer |
+|---|---|
+| DB name | `crm_erp_prod` |
+| DB user | `crm_erp_app` |
+| DB password | **generate** with `openssl rand -base64 24` (paste in `env/backend.env.production`) |
+| Use managed DB (RDS / DO Managed)? | No (recommended for cost) / Yes |
+
+For the pilot, MySQL on the same VPS is fine. Move to a managed DB only when
+the app server starts contending with MySQL for memory.
+
+---
+
+## 4. Cache / queue / sessions
+
+The current local setup uses `file` / `file` / `sync`. In production we want
+**Redis** for all three. It's installed by `02-install-stack.sh`.
+
+| Question | Your answer |
+|---|---|
+| Driver | Redis (recommended) / database (fallback) |
+
+---
+
+## 5. Mail
+
+The app needs to send password reset emails, reminders (Module 6.2), and the
+Save & Email action (Sprint A). Pick a provider with free tier:
+
+| Provider | Free tier | Setup |
+|---|---|---|
+| **Brevo** (formerly Sendinblue) | 300/day | API or SMTP |
+| **Resend** | 100/day | API key |
+| **SendGrid** | 100/day | API key |
+| **Amazon SES** | $0.10/1000 | needs verified domain |
+| **Gmail SMTP** | 500/day | app password, fine for pilot |
+
+| Question | Your answer |
+|---|---|
+| Provider | _____ |
+| `MAIL_HOST` | e.g. `smtp.brevo.com` |
+| `MAIL_PORT` | usually 587 (TLS) |
+| `MAIL_USERNAME` | _____ |
+| `MAIL_PASSWORD` | _____ |
+| `MAIL_FROM_ADDRESS` | `no-reply@yourdomain.com` |
+| `MAIL_FROM_NAME` | your company name |
+
+Add `MAIL_FROM_ADDRESS`'s SPF/DKIM records to your DNS — most providers give
+you these on signup. Without them, mail lands in spam.
+
+---
+
+## 6. File storage
+
+Local users upload files via Module 6.1 Documents. Two choices:
+
+**A. Server disk** (default, simplest):
+- Files live at `/var/www/crm-erp/storage/app/public`.
+- Survives reboots but **NOT** server destruction. Back up to off-server.
+- `SHARED_STORAGE_DRIVER=local`.
+
+**B. S3-compatible object storage** (recommended once you're past pilot):
+- Hetzner Object Storage, Backblaze B2, Cloudflare R2, AWS S3, Wasabi.
+- Free egress on R2 (cheapest if your users download a lot).
+- `SHARED_STORAGE_DRIVER=s3` + `AWS_*` env vars.
+
+| Question | Your answer |
+|---|---|
+| Driver | local (for pilot) / s3 |
+| Bucket (if s3) | _____ |
+| Endpoint (if s3) | e.g. `https://s3.us-east-1.wasabisys.com` |
+
+---
+
+## 7. Backups
+
+| Question | Your answer |
+|---|---|
+| Where backups go | Off-server: S3 / B2 / Backblaze / Google Drive via `rclone` |
+| Frequency | Nightly (recommended) |
+| Retention | 14 daily + 8 weekly + 6 monthly (recommended) |
+
+`scripts/backup-db.sh` dumps locally. You add the rclone upload step.
+
+---
+
+## 8. Source control
+
+Highly recommended: push the whole `E:\CRM+ERP\` to a **private** Git repo
+(GitHub / GitLab / Bitbucket). The server pulls from there on every deploy.
+
+| Question | Your answer |
+|---|---|
+| Repo URL (private) | e.g. `git@github.com:youruser/crm-erp.git` |
+| Deploy key on server | generated by `01-provision-ubuntu.sh`; you add to repo |
+
+If you really don't want Git, you can `scp` / `rsync` from your laptop —
+`scripts/upload-to-server.bat` does that. Slower, more error-prone, but works.
+
+---
+
+## 9. Optional but recommended
+
+| Question | Your answer |
+|---|---|
+| Add Sentry / Bugsnag for error tracking? | No (start) / Yes — `SENTRY_LARAVEL_DSN` |
+| Add UptimeRobot / Better Uptime ping? | Yes (free, 5-min intervals) |
+| Use Cloudflare WAF? | Yes if proxied (free tier OK) |
+| 2FA on the server provider account | **Yes — non-negotiable** |
+| 2FA on the domain registrar | **Yes — non-negotiable** |
+
+---
+
+## 10. Tokens / placeholders the scripts expect
+
+Once filled in, do a project-wide search & replace **inside the `Weblive\`
+folder only** before uploading:
+
+| Placeholder | Replace with |
+|---|---|
+| `yourdomain.com` | your actual domain |
+| `app.yourdomain.com` | your app subdomain |
+| `api.yourdomain.com` | your api subdomain |
+| `<SERVER_IP>` | the VPS public IP |
+| `<DB_PASSWORD>` | the generated MySQL app-user password |
+| `<APP_KEY>` | generated on server by `php artisan key:generate` |
+| `<MAIL_*>` | from your mail provider |
+| `<REPO_URL>` | your private Git repo URL |
+
+Done? Move on to **`DEPLOYMENT_GUIDE.md`**.

@@ -1,0 +1,7 @@
+{
+    "name": "Templates",
+    "number": "6.7",
+    "description": "Editable PDF templates for Invoice, Quotation, Proforma, Export Invoice, PO, Tax Invoice. Mustache-style placeholders, dompdf rendering.",
+    "depends": ["Auth", "Companies", "Settings", "Sales", "Quotation", "Purchase", "Export"],
+    "providers": ["Modules\\Templates\\Providers\\TemplatesServiceProvider"]
+}

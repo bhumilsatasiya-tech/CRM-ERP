@@ -1,0 +1,11 @@
+{
+    "name": "Inventory",
+    "module_number": "3.1",
+    "menu_number": 11,
+    "alias": "inventory",
+    "description": "Stock Ledger (immutable), Stock Adjustments, Stock Transfers. Single source of truth for stock movement. Every Purchase / Production / Sales / Export / Inter-Company write goes through StockService.",
+    "keywords": ["inventory", "stock", "ledger", "adjustment", "transfer", "warehouse", "batch", "expiry"],
+    "priority": 5,
+    "providers": ["Modules\\Inventory\\Providers\\InventoryServiceProvider"],
+    "depends_on": ["Auth", "Companies", "Settings", "Products"]
+}

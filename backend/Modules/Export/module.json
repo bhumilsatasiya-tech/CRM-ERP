@@ -1,0 +1,8 @@
+{
+    "name": "Export",
+    "module_number": "4.5",
+    "alias": "export",
+    "description": "Export Invoices (multi-currency, incoterms) + Shipping Bills (BL, vessel, ports). Stock OUT happens on Shipping Bill dispatch, not on invoice posting.",
+    "providers": ["Modules\\Export\\Providers\\ExportServiceProvider"],
+    "depends_on": ["Auth", "Companies", "Settings", "Crm", "Products", "Inventory", "Sales"]
+}

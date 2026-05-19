@@ -1,0 +1,6 @@
+{
+  "name": "Projects",
+  "number": "26",
+  "description": "Project costing — manual entry of raw material, conversion, packaging, labour, transport, utilities, overhead costs. Compare planned vs actual per category.",
+  "providers": ["Modules\\Projects\\Providers\\ProjectsServiceProvider"]
+}

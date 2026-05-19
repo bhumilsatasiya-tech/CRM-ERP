@@ -1,0 +1,8 @@
+{
+    "name": "Loans",
+    "module_number": "5.2",
+    "alias": "loans",
+    "description": "Loans (borrowed/given) with reducing-balance EMI schedule, payment waterfall, auto-close on full repayment.",
+    "providers": ["Modules\\Loans\\Providers\\LoansServiceProvider"],
+    "depends_on": ["Auth", "Companies", "Crm", "Settings"]
+}

@@ -1,0 +1,13 @@
+{
+    "name": "Companies",
+    "module_number": "1.2",
+    "menu_number": 2,
+    "alias": "companies",
+    "description": "Companies, Branches, Warehouses, user-company assignments. Multi-company foundation — every business table from here on FKs to companies.id.",
+    "keywords": ["companies", "branches", "warehouses", "multi-tenant", "company-switcher"],
+    "priority": 1,
+    "providers": [
+        "Modules\\Companies\\Providers\\CompaniesServiceProvider"
+    ],
+    "depends_on": ["Auth"]
+}

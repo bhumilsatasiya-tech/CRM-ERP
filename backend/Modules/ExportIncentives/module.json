@@ -1,0 +1,7 @@
+{
+    "name": "ExportIncentives",
+    "number": "6.6",
+    "description": "Drawback / IGST refund / RoDTEP claim tracking against shipping bills.",
+    "depends": ["Export", "Companies", "Auth", "Settings"],
+    "providers": ["Modules\\ExportIncentives\\Providers\\ExportIncentivesServiceProvider"]
+}

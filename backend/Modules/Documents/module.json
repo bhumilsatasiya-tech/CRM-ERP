@@ -1,0 +1,8 @@
+{
+    "name": "Documents",
+    "module_number": "6.1",
+    "alias": "documents",
+    "description": "Polymorphic file attachments. Drop-in DocumentsPanel attached to any model.",
+    "providers": ["Modules\\Documents\\Providers\\DocumentsServiceProvider"],
+    "depends_on": ["Auth", "Companies"]
+}

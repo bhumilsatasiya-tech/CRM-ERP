@@ -1,0 +1,8 @@
+{
+    "name": "InterCompany",
+    "module_number": "5.4",
+    "alias": "intercompany",
+    "description": "Inter-Company Billing: Co. B sells to Co. A with profit %. ONE post creates the mirror pair (Sale invoice on B + Purchase invoice on A) plus paired stock OUT/IN ledger writes.",
+    "providers": ["Modules\\InterCompany\\Providers\\InterCompanyServiceProvider"],
+    "depends_on": ["Auth", "Companies", "Settings", "Crm", "Products", "Inventory", "Sales", "Purchase"]
+}

@@ -1,0 +1,11 @@
+{
+    "name": "Tracking",
+    "module_number": "4.4",
+    "menu_number": 17,
+    "alias": "tracking",
+    "description": "Read-only Order Tracking aggregator. Unifies Quotation + Sales Order + Production Batches + Invoices + Payments + Stock Ledger movements into a single timeline per Sales Order. No new schema.",
+    "keywords": ["tracking", "order", "lineage", "timeline", "progress", "dashboard"],
+    "priority": 13,
+    "providers": ["Modules\\Tracking\\Providers\\TrackingServiceProvider"],
+    "depends_on": ["Auth", "Companies", "Settings", "Crm", "Products", "Inventory", "Quotation", "Sales", "Production"]
+}

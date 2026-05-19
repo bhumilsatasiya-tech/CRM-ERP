@@ -1,0 +1,15 @@
+{
+    "name": "Auth",
+    "module_number": "1.1",
+    "menu_number": 22,
+    "alias": "auth",
+    "description": "Authentication, Users, Roles, Permissions — foundation module. Required by all other modules.",
+    "keywords": ["auth", "users", "roles", "permissions", "login", "rbac"],
+    "priority": 0,
+    "providers": [
+        "Modules\\Auth\\Providers\\AuthServiceProvider"
+    ],
+    "files": [],
+    "requires": [],
+    "depends_on": []
+}

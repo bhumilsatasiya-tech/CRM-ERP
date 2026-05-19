@@ -1,0 +1,8 @@
+{
+    "name": "Finance",
+    "module_number": "5.1",
+    "alias": "finance",
+    "description": "Double-entry accounting: Chart of Accounts, Journal Entries, Trial Balance, P&L, Balance Sheet. Auto-journals events from existing modules (Invoice, IRM, Production, ICI, Salary).",
+    "providers": ["Modules\\Finance\\Providers\\FinanceServiceProvider"],
+    "depends_on": ["Auth", "Companies", "Settings"]
+}

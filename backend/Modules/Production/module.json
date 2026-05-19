@@ -1,0 +1,11 @@
+{
+    "name": "Production",
+    "module_number": "4.3",
+    "menu_number": 16,
+    "alias": "production",
+    "description": "Production Batches with raw consumption and finished goods production. Counterpart to GRN: a batch issues raw materials (StockService OUT) and produces finished goods (StockService IN). Includes failure tracking and QC log.",
+    "keywords": ["production", "batch", "manufacturing", "qc", "quality", "scrap", "raw", "finished"],
+    "priority": 12,
+    "providers": ["Modules\\Production\\Providers\\ProductionServiceProvider"],
+    "depends_on": ["Auth", "Companies", "Settings", "Products", "Inventory", "Sales"]
+}

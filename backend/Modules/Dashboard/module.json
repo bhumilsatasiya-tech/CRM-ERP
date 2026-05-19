@@ -1,0 +1,8 @@
+{
+    "name": "Dashboard",
+    "module_number": "6.5",
+    "alias": "dashboard",
+    "description": "Top-level KPIs aggregating sales, purchase, production, inventory, export, finance, tasks. Single GET /api/v1/dashboard/kpis endpoint.",
+    "providers": ["Modules\\Dashboard\\Providers\\DashboardServiceProvider"],
+    "depends_on": ["Sales", "Purchase", "Inventory", "Production", "Finance", "Export", "Irm", "Tasks"]
+}

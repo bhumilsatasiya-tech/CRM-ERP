@@ -1,0 +1,8 @@
+{
+    "name": "Tasks",
+    "module_number": "6.2",
+    "alias": "tasks",
+    "description": "Tasks + Reminders. Google Calendar sync stubbed (set GOOGLE_CLIENT_ID/SECRET in .env to enable). Run 'php artisan reminders:dispatch' to send due reminders.",
+    "providers": ["Modules\\Tasks\\Providers\\TasksServiceProvider"],
+    "depends_on": ["Auth", "Companies"]
+}

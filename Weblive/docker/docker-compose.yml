@@ -1,0 +1,128 @@
+# ============================================================================
+# Optional containerized variant — alternative to the VPS-native flow.
+#
+# Use this if you'd rather deploy via Docker (e.g. on a server you don't fully
+# trust, on a CaaS like Railway/Fly.io, or when you want isolated per-tenant
+# stacks). The mainline `server-setup/*.sh` flow does NOT use this — pick one
+# or the other.
+#
+# Usage:
+#   cd Weblive/docker
+#   cp ../env/backend.env.production ./backend.env
+#   cp ../env/frontend.env.production ./frontend.env   # build-time only
+#   docker compose up -d --build
+#
+# Notes:
+# - Frontend env values are BAKED INTO the bundle at build time. Change them
+#   and you must rebuild the frontend image.
+# - For real production use behind a domain, put Caddy/Traefik in front instead
+#   of binding nginx directly to :80/:443, OR uncomment the labels block and
+#   plug in your reverse-proxy of choice.
+# ============================================================================
+
+version: "3.9"
+
+services:
+  mysql:
+    image: mysql:8.0
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-rootpass}
+      MYSQL_DATABASE: crm_erp_prod
+      MYSQL_USER: crm_erp_app
+      MYSQL_PASSWORD: ${DB_PASSWORD:-changeme}
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+      - --default-time-zone=+05:30
+      - --innodb-buffer-pool-size=1G
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks: [crm]
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1"]
+      interval: 10s
+      retries: 10
+
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    command: redis-server --maxmemory 512mb --maxmemory-policy allkeys-lru
+    volumes:
+      - redis_data:/data
+    networks: [crm]
+
+  backend:
+    build:
+      context: ../..
+      dockerfile: Weblive/docker/Dockerfile.backend
+    restart: unless-stopped
+    depends_on:
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    env_file: ./backend.env
+    environment:
+      DB_HOST: mysql
+      REDIS_HOST: redis
+    volumes:
+      - backend_storage:/var/www/html/storage
+    networks: [crm]
+    # Uncomment when behind a reverse proxy that needs labels:
+    # labels:
+    #   traefik.http.routers.crm-api.rule: "Host(`api.yourdomain.com`)"
+    #   traefik.http.services.crm-api.loadbalancer.server.port: "9000"
+
+  queue:
+    build:
+      context: ../..
+      dockerfile: Weblive/docker/Dockerfile.backend
+    restart: unless-stopped
+    depends_on:
+      - backend
+    env_file: ./backend.env
+    environment:
+      DB_HOST: mysql
+      REDIS_HOST: redis
+    volumes:
+      - backend_storage:/var/www/html/storage
+    command: php artisan queue:work redis --queue=default,reminders --sleep=3 --tries=3
+    networks: [crm]
+
+  scheduler:
+    image: alpine:3.19
+    restart: unless-stopped
+    depends_on:
+      - backend
+    command: >
+      sh -c "while true; do
+        wget -qO- http://backend:9000/scheduler >/dev/null 2>&1;
+        sleep 60;
+      done"
+    networks: [crm]
+
+  frontend:
+    build:
+      context: ../..
+      dockerfile: Weblive/docker/Dockerfile.frontend
+      args:
+        VITE_API_BASE_URL: ${VITE_API_BASE_URL:-https://api.yourdomain.com/api/v1}
+        VITE_APP_NAME: "CRM+ERP"
+    restart: unless-stopped
+    depends_on:
+      - backend
+    ports:
+      - "80:80"
+    networks: [crm]
+    # For HTTPS, run Caddy/Traefik in front; or replace this with a TLS-aware
+    # image and mount your certs. The Dockerfile here is plain HTTP nginx.
+
+volumes:
+  mysql_data:
+  redis_data:
+  backend_storage:
+
+networks:
+  crm:
+    driver: bridge

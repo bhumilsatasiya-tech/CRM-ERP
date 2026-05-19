@@ -1,0 +1,59 @@
+# syntax=docker/dockerfile:1.6
+# ----------------------------------------------------------------------------
+# Backend image — PHP 8.1-FPM + Laravel 9
+# Build from the repo root:  docker build -f Weblive/docker/Dockerfile.backend -t crm-backend .
+# ----------------------------------------------------------------------------
+
+FROM php:8.1-fpm-alpine
+
+# System deps
+RUN apk add --no-cache \
+    bash git curl unzip icu-dev libzip-dev oniguruma-dev libxml2-dev \
+    libpng-dev jpeg-dev freetype-dev mysql-client \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install pdo_mysql mbstring xml zip bcmath intl gd opcache \
+    && pecl install redis \
+    && docker-php-ext-enable redis
+
+# Composer
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+
+# OPcache prod config
+COPY <<'EOF' /usr/local/etc/php/conf.d/opcache.ini
+opcache.enable=1
+opcache.enable_cli=0
+opcache.memory_consumption=256
+opcache.interned_strings_buffer=16
+opcache.max_accelerated_files=20000
+opcache.validate_timestamps=0
+opcache.revalidate_freq=0
+opcache.fast_shutdown=1
+EOF
+
+COPY <<'EOF' /usr/local/etc/php/conf.d/uploads.ini
+memory_limit=512M
+upload_max_filesize=32M
+post_max_size=32M
+max_execution_time=120
+date.timezone=Asia/Kolkata
+EOF
+
+WORKDIR /var/www/html
+
+# Copy the backend source. Build context is the repo root.
+COPY backend/composer.json backend/composer.lock ./
+RUN composer install --no-dev --no-scripts --no-autoloader --prefer-dist --no-interaction
+
+COPY backend/ ./
+RUN composer dump-autoload --optimize \
+    && mkdir -p storage/logs storage/framework/cache storage/framework/sessions storage/framework/views bootstrap/cache \
+    && chown -R www-data:www-data storage bootstrap/cache \
+    && chmod -R 775 storage bootstrap/cache
+
+# Cache config/routes at image build (env vars at runtime will override .env values)
+# NOTE: leave config:cache to runtime entrypoint so per-deploy env changes are picked up.
+
+EXPOSE 9000
+
+# Default command — overridden by docker-compose for the `queue` service
+CMD ["php-fpm"]

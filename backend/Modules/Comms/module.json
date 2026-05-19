@@ -1,0 +1,8 @@
+{
+    "name": "Comms",
+    "module_number": "6.3",
+    "alias": "comms",
+    "description": "Outbound Email (Laravel Mail) + WhatsApp (pluggable provider). All sends logged to comm_messages with related polymorphic link.",
+    "providers": ["Modules\\Comms\\Providers\\CommsServiceProvider"],
+    "depends_on": ["Auth", "Companies"]
+}

@@ -1,0 +1,8 @@
+{
+    "name": "Irm",
+    "module_number": "4.6",
+    "alias": "irm",
+    "description": "Inward Remittance Messages (IRM) for export invoices in foreign currency. Each IRM is allocated to a single Export Invoice and applied to its paid_amount in INR. Bank Closure marks the IRM as closed (with commission/TDS captured).",
+    "providers": ["Modules\\Irm\\Providers\\IrmServiceProvider"],
+    "depends_on": ["Auth", "Companies", "Export"]
+}

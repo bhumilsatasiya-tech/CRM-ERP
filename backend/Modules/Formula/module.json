@@ -1,0 +1,8 @@
+{
+    "name": "Formula",
+    "module_number": "2.3",
+    "alias": "formula",
+    "description": "Bill of Materials per finished product. Versioned, activate one per target product. Production batches scaffold their input lines from the active formula scaled to the target qty.",
+    "providers": ["Modules\\Formula\\Providers\\FormulaServiceProvider"],
+    "depends_on": ["Auth", "Companies", "Products"]
+}

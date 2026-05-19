@@ -1,0 +1,11 @@
+{
+    "name": "Crm",
+    "module_number": "2.1",
+    "menu_number": 3,
+    "alias": "crm",
+    "description": "Partners (clients, suppliers, manufacturers, employees) with contacts, addresses, bank accounts. The master-data backbone for every sales/purchase/finance flow.",
+    "keywords": ["crm", "partners", "clients", "suppliers", "manufacturers", "contacts", "addresses"],
+    "priority": 3,
+    "providers": ["Modules\\Crm\\Providers\\CrmServiceProvider"],
+    "depends_on": ["Auth", "Companies", "Settings"]
+}

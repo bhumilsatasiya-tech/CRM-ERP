@@ -1,0 +1,814 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>CRM + ERP — User Manual</title>
+<style>
+  @page { size: A4; margin: 18mm 16mm 20mm 16mm; }
+  * { box-sizing: border-box; }
+  body {
+    font: 11pt/1.5 -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: #222;
+    margin: 0;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  h1, h2, h3, h4 { color: #0d47a1; line-height: 1.25; margin: 0.6em 0 0.3em; }
+  h1 { font-size: 24pt; border-bottom: 3px solid #0d47a1; padding-bottom: 6px; page-break-before: always; }
+  h1.cover { border: none; page-break-before: avoid; font-size: 32pt; margin-top: 80mm; text-align: center; }
+  h2 { font-size: 16pt; margin-top: 24pt; border-bottom: 1px solid #cfd8dc; padding-bottom: 4px; }
+  h3 { font-size: 13pt; color: #1565c0; }
+  h4 { font-size: 11.5pt; color: #37474f; }
+  p { margin: 0.4em 0; }
+  ul, ol { margin: 0.4em 0; padding-left: 22px; }
+  li { margin: 2px 0; }
+  code { background: #f1f3f4; padding: 1px 5px; border-radius: 3px; font-family: Consolas, Menlo, monospace; font-size: 90%; }
+  table { border-collapse: collapse; width: 100%; margin: 8px 0; font-size: 10pt; }
+  th, td { border: 1px solid #cfd8dc; padding: 5px 8px; text-align: left; vertical-align: top; }
+  th { background: #eceff1; }
+  .callout { border-left: 4px solid; padding: 8px 12px; margin: 10px 0; border-radius: 0 4px 4px 0; }
+  .callout.info  { background: #e3f2fd; border-color: #1976d2; }
+  .callout.tip   { background: #e8f5e9; border-color: #2e7d32; }
+  .callout.warn  { background: #fff3e0; border-color: #ef6c00; }
+  .badge { display: inline-block; padding: 1px 8px; border-radius: 10px; font-size: 9pt; font-weight: 600; color: #fff; vertical-align: middle; }
+  .b-blue { background: #1976d2; }
+  .b-green{ background: #2e7d32; }
+  .b-orange { background: #ef6c00; }
+  .b-purple { background: #6a1b9a; }
+  .b-grey { background: #607d8b; }
+  .b-red { background: #c62828; }
+  .b-cyan { background: #00838f; }
+  .b-gold { background: #c79100; }
+  .step { display: flex; gap: 10px; margin: 6px 0; }
+  .step .n { flex: 0 0 26px; height: 26px; border-radius: 50%; background: #0d47a1; color: #fff; font-weight: 700; text-align: center; line-height: 26px; font-size: 11pt; }
+  .pill-row { margin: 8px 0; }
+  .pill { display: inline-block; padding: 2px 10px; margin: 2px 4px 2px 0; background: #eceff1; border: 1px solid #cfd8dc; border-radius: 12px; font-size: 9.5pt; }
+  .toc { columns: 2; column-gap: 28px; }
+  .toc a { color: #0d47a1; text-decoration: none; }
+  .toc-section { font-weight: 600; color: #0d47a1; margin-top: 8px; }
+  .small { font-size: 9.5pt; color: #546e7a; }
+  .pagebreak { page-break-before: always; }
+  .center { text-align: center; }
+  .frame { border: 1px solid #cfd8dc; border-radius: 6px; padding: 10px 14px; background: #fafafa; margin: 8px 0; }
+  .frame .title { font-weight: 700; color: #0d47a1; margin-bottom: 4px; }
+  hr { border: none; border-top: 1px solid #cfd8dc; margin: 12px 0; }
+  .kbd { display: inline-block; padding: 1px 6px; border: 1px solid #cfd8dc; border-bottom-width: 2px; border-radius: 3px; font-family: Consolas, monospace; font-size: 9.5pt; background: #fff; }
+</style>
+</head>
+<body>
+
+<!-- ================== COVER ================== -->
+<h1 class="cover">CRM + ERP<br><span style="font-size:14pt;color:#37474f;font-weight:400;">User Manual</span></h1>
+<p class="center small">A practical guide to using the system: every menu, every screen, every button.<br>
+For day-to-day users — sales, purchase, inventory, finance.</p>
+<div style="height:18mm"></div>
+<div class="center">
+  <div class="frame" style="display:inline-block;text-align:left;min-width:140mm">
+    <div class="title">In this manual</div>
+    <ol>
+      <li>Logging in and finding your way around</li>
+      <li>The top bar (company switcher + your account)</li>
+      <li>The sidebar — what every group of menus does</li>
+      <li>Each menu and sub-menu, screen by screen</li>
+      <li>Step-by-step business workflows (purchase, sales, stock)</li>
+      <li>Document statuses — what they mean</li>
+      <li>Frequently asked questions and tips</li>
+    </ol>
+  </div>
+</div>
+
+<!-- ================== TOC ================== -->
+<h1>Table of Contents</h1>
+<div class="toc">
+  <div class="toc-section">1 — Getting started</div>
+  1.1 Logging in<br>
+  1.2 First-time setup<br>
+  1.3 The screen, top to bottom<br>
+
+  <div class="toc-section">2 — The top bar</div>
+  2.1 Active company switcher<br>
+  2.2 Your name and Sign out<br>
+
+  <div class="toc-section">3 — Dashboard</div>
+
+  <div class="toc-section">4 — Company Management</div>
+  4.1 Companies (list)<br>
+  4.2 Add / edit a company<br>
+  4.3 Branches<br>
+  4.4 Warehouses<br>
+
+  <div class="toc-section">5 — CRM</div>
+  5.1 Partners (list)<br>
+  5.2 New / edit partner — General tab<br>
+  5.3 Contacts tab<br>
+  5.4 Addresses tab<br>
+  5.5 Bank accounts tab<br>
+
+  <div class="toc-section">6 — Product Management</div>
+  6.1 Products (list)<br>
+  6.2 New / edit product (4 tabs)<br>
+  6.3 Categories<br>
+  6.4 Units<br>
+
+  <div class="toc-section">7 — Inventory &amp; Stock</div>
+  7.1 Current stock<br>
+  7.2 Stock ledger<br>
+  7.3 Adjustments<br>
+  7.4 Transfers<br>
+
+  <div class="toc-section">8 — Purchase</div>
+  8.1 Purchase orders<br>
+  8.2 GRNs (goods receipt)<br>
+  8.3 Purchase invoices<br>
+
+  <div class="toc-section">9 — Sales</div>
+  9.1 Quotations<br>
+  9.2 Sales orders<br>
+  9.3 Invoices &amp; payments<br>
+
+  <div class="toc-section">10 — Users &amp; Roles</div>
+  10.1 Users<br>
+  10.2 Roles<br>
+
+  <div class="toc-section">11 — System</div>
+  11.1 Settings<br>
+  11.2 Sequences<br>
+  11.3 Audit log<br>
+
+  <div class="toc-section">12 — End-to-end workflows</div>
+  12.1 Buying raw material from a supplier<br>
+  12.2 Quoting and selling to a customer<br>
+  12.3 Adjusting stock after a count<br>
+  12.4 Transferring stock between warehouses<br>
+  12.5 Working across both companies<br>
+
+  <div class="toc-section">13 — Document statuses</div>
+  <div class="toc-section">14 — FAQ &amp; tips</div>
+</div>
+
+<!-- ================== 1 ================== -->
+<h1>1. Getting started</h1>
+
+<h2>1.1 Logging in</h2>
+<ol>
+  <li>Open your browser at <code>http://localhost:5173</code>.</li>
+  <li>You'll see a Sign-in card.</li>
+  <li>Enter your <strong>email</strong> and <strong>password</strong>. The first administrator account is:
+    <table>
+      <tr><th>Email</th><td><code>admin@crm-erp.local</code></td></tr>
+      <tr><th>Password</th><td><code>ChangeMe@123</code></td></tr>
+    </table>
+  </li>
+  <li>Click <strong>Sign in</strong>. The system takes you to the Dashboard.</li>
+</ol>
+<div class="callout warn"><strong>Change the default password.</strong> The first admin is flagged
+<em>must change password</em>. Set a real one before adding other users.</div>
+
+<h2>1.2 First-time setup (recommended order)</h2>
+<ol>
+  <li><strong>Verify the two seeded companies</strong> exist (Company Management → Companies). You should see <span class="pill">COA — Company A</span> and <span class="pill">COB — Company B</span>.</li>
+  <li><strong>Set company-level defaults</strong> (System → Settings) — currency, payment terms, document footer text.</li>
+  <li><strong>Create user accounts</strong> for your team (Users &amp; Roles → Users) and assign appropriate roles.</li>
+  <li><strong>Add partners</strong> (CRM → Partners) — your real clients, suppliers, manufacturers.</li>
+  <li><strong>Add products</strong> (Product Management → Products) — your real SKUs.</li>
+  <li><strong>Enter opening stock</strong> (Inventory &amp; Stock → Adjustments) — set today's quantities.</li>
+  <li>You're now ready for daily transactions: purchase, sales, transfers.</li>
+</ol>
+
+<h2>1.3 The screen, top to bottom</h2>
+<div class="frame">
+  <div class="title">Top bar</div>
+  Always visible at the top. Holds the <strong>active company switcher</strong> (left)
+  and your <strong>name + Sign out</strong> (right). The company you choose here filters
+  every list and form on the rest of the screen.
+</div>
+<div class="frame">
+  <div class="title">Left sidebar</div>
+  Grouped menu items. Click a group to expand its sub-menus. The sidebar can be
+  collapsed for more workspace using the arrow at the bottom of the panel.
+</div>
+<div class="frame">
+  <div class="title">Main area</div>
+  Whatever you click in the sidebar opens here — a list, a form, or a report.
+  All edit screens have <strong>Back</strong>, <strong>Save</strong>, and (where
+  applicable) workflow buttons like <strong>Approve</strong>, <strong>Post</strong>,
+  <strong>Cancel</strong> at the top right.
+</div>
+
+<!-- ================== 2 ================== -->
+<h1>2. The top bar</h1>
+
+<h2>2.1 Active company switcher</h2>
+<p>The system runs <strong>two companies</strong> side-by-side: <strong>Company A</strong>
+(export) and <strong>Company B</strong> (supplying). Everything you see — partners, products,
+orders, invoices, stock — belongs to one specific company.</p>
+<p>Use the dropdown to switch:</p>
+<ul>
+  <li>Pick a company from the list (the active one is shown with its code on the right).</li>
+  <li>The page reloads automatically; lists and forms now show data for the new company.</li>
+  <li>Each company tracks its own document numbers (PO/2026/00001 in Company A is independent of PO/2026/00001 in Company B).</li>
+</ul>
+<div class="callout tip"><strong>Tip:</strong> if you don't see a record you expected, check the
+top bar — you may be in the wrong company.</div>
+
+<h2>2.2 Your name and Sign out</h2>
+<ul>
+  <li>Your full name is displayed.</li>
+  <li>Click <strong>Sign out</strong> to end the session.</li>
+</ul>
+
+<!-- ================== 3 ================== -->
+<h1>3. Dashboard</h1>
+<p>The Dashboard is your landing page after signing in. It shows:</p>
+<ul>
+  <li>Your name and the active company.</li>
+  <li>Your roles (super-admin, admin, manager, etc.).</li>
+  <li>Quick links to <strong>Manage Companies</strong>, <strong>Manage Users</strong>, and <strong>Manage Roles</strong>.</li>
+</ul>
+<p>As more modules are activated, the Dashboard will grow into a KPI panel
+(open invoices, pending orders, low stock alerts, etc.).</p>
+
+<!-- ================== 4 ================== -->
+<h1>4. Company Management</h1>
+<p>This is where you set up the legal entities, branches, and warehouses that
+hold your operations.</p>
+
+<h2>4.1 Companies (list)</h2>
+<p><strong>Sidebar:</strong> Company Management &rarr; Companies</p>
+<p><strong>What you see:</strong> a table of all companies you have access to,
+with code, name, type, GST, branch count, warehouse count, and active status.</p>
+<p><strong>Filters at the top:</strong></p>
+<ul>
+  <li><strong>Search</strong> — searches code, name, legal name, GST.</li>
+  <li><strong>Type</strong> — Export / Supplying / Trading / Other.</li>
+  <li><strong>Status</strong> — Active or Inactive only.</li>
+  <li><strong>Refresh</strong> — re-pull from the server.</li>
+  <li><strong>+ New company</strong> (top right) — start a new one.</li>
+</ul>
+<p><strong>On each row you can:</strong></p>
+<ul>
+  <li>Click <strong>Branches</strong> to manage that company's branches.</li>
+  <li>Click <strong>Warehouses</strong> to manage that company's storage locations.</li>
+  <li>Click the pencil icon to edit, the trash icon to delete (only if no branches / warehouses exist).</li>
+</ul>
+
+<h2>4.2 Add / edit a company</h2>
+<p>The form is grouped into clear sections:</p>
+<table>
+  <tr><th>Identity</th><td>Code (short alphanumeric, e.g. <code>COA</code>), Name, Legal name, Type</td></tr>
+  <tr><th>Currency &amp; FY</th><td>Currency (defaults to INR), Fiscal year start date</td></tr>
+  <tr><th>Tax / regulatory</th><td>GST, PAN, CIN, IEC, Registration number</td></tr>
+  <tr><th>Contact</th><td>Email, phone, website</td></tr>
+  <tr><th>Address</th><td>Line 1, Line 2, City, State, Country, Postal code</td></tr>
+  <tr><th>Active</th><td>Toggle to enable or disable this company</td></tr>
+</table>
+<p>Click <strong>Create company</strong> (or <strong>Save changes</strong>) to commit. Cancel returns to the list.</p>
+
+<h2>4.3 Branches</h2>
+<p><strong>Sidebar &rarr; Companies &rarr; click <em>Branches</em> on a company row.</strong></p>
+<p>Each company can have multiple branches (offices, regional centers). One can be
+flagged as the <strong>Head Office</strong>.</p>
+<p><strong>Fields:</strong> Code, Name, Head office (toggle), Email, Phone, GST at
+this branch, full Address, Active toggle.</p>
+<p>Use branches to track addresses for invoices that ship from a different
+location than the registered head office.</p>
+
+<h2>4.4 Warehouses</h2>
+<p><strong>Sidebar &rarr; Companies &rarr; click <em>Warehouses</em> on a company row.</strong></p>
+<p>Warehouses are physical (or logical) locations where stock is held. Pre-seeded
+warehouses for each company:</p>
+<ul>
+  <li><span class="pill">WH-FG — Finished Goods</span></li>
+  <li><span class="pill">WH-RM — Raw Material</span></li>
+</ul>
+<p><strong>When creating a warehouse, choose its type:</strong></p>
+<table>
+  <tr><th>Type</th><th>Used for</th></tr>
+  <tr><td>Finished</td><td>Finished goods ready to sell</td></tr>
+  <tr><td>Raw</td><td>Raw materials waiting for production</td></tr>
+  <tr><td>Packaging</td><td>Packaging supplies (boxes, labels, films)</td></tr>
+  <tr><td>Quarantine</td><td>Stock pending QC release</td></tr>
+  <tr><td>Transit</td><td>Stock currently moving between locations</td></tr>
+  <tr><td>Reject</td><td>Rejected / damaged stock to be written off</td></tr>
+</table>
+<p>One warehouse per company can be marked <strong>Default</strong> — used as
+the auto-suggested location on new documents.</p>
+
+<!-- ================== 5 ================== -->
+<h1>5. CRM — Partners</h1>
+<p>Partners are everyone you transact with: clients, suppliers, manufacturers, and
+employee-vendors. They're stored in one master table with a <strong>Type</strong>
+field.</p>
+
+<h2>5.1 Partners (list)</h2>
+<p><strong>Sidebar:</strong> CRM &rarr; Partners</p>
+<p><strong>What you see:</strong> all partners for the active company, with code,
+name, type, segment, GST, currency, credit limit, contacts count, and active flag.</p>
+<p><strong>Filters at the top:</strong></p>
+<ul>
+  <li>Search (code / name / GST / phone / email).</li>
+  <li>Type — Client / Supplier / Manufacturer / Employee / Other.</li>
+  <li>Segment — B2B / B2C / Distributor / OEM / Other.</li>
+  <li>Status — Active / Inactive.</li>
+</ul>
+<p>Click the pencil icon to edit, trash to delete. Click <strong>+ New partner</strong>
+to add one.</p>
+
+<h2>5.2 New / edit partner — General tab</h2>
+<p>Sections of the General tab:</p>
+<table>
+  <tr><th>Identity</th><td>Code, Name, Legal name, Type, Segment, Industry, "Is a company" toggle</td></tr>
+  <tr><th>Contact</th><td>Email, Phone, Mobile, Website</td></tr>
+  <tr><th>Tax</th><td>GST, PAN, Tax treatment (Registered / Unregistered / Composition / SEZ / Overseas)</td></tr>
+  <tr><th>Finance</th><td>Currency, Credit limit, Credit days, Payment terms (days), Opening balance + type (Debit/Credit)</td></tr>
+  <tr><th>Flags</th><td>Active, Blacklisted (with reason)</td></tr>
+  <tr><th>Notes</th><td>Free-text notes</td></tr>
+</table>
+<div class="callout info"><strong>You must save the partner first</strong> before adding contacts,
+addresses, or bank accounts. The other tabs unlock once the General tab is saved.</div>
+
+<h2>5.3 Contacts tab</h2>
+<p>Multiple human contacts per partner — sales contact, accounts contact, owner, etc.</p>
+<p>Click <strong>+ New contact</strong> to open the modal:</p>
+<ul>
+  <li>Name (required), Designation, Department</li>
+  <li>Email, Phone, Mobile</li>
+  <li><strong>Primary</strong> toggle — only one contact can be primary; setting another removes the flag from the previous one</li>
+  <li>Active toggle, Notes</li>
+</ul>
+
+<h2>5.4 Addresses tab</h2>
+<p>Multiple addresses per partner, classified by <strong>type</strong>:</p>
+<ul>
+  <li><span class="badge b-blue">billing</span> — used on invoices (To address)</li>
+  <li><span class="badge b-green">shipping</span> — used on dispatch documents</li>
+  <li><span class="badge b-purple">registered</span> — registered office for legal correspondence</li>
+  <li><span class="badge b-orange">branch</span> — additional locations</li>
+</ul>
+<p>For each address: contact name, phone, email, full street address, optional GST at this address (useful when the partner has different GST numbers for different states), Primary toggle (one primary per type per partner).</p>
+
+<h2>5.5 Bank accounts tab</h2>
+<p>Per-partner bank accounts — used for supplier payments and customer remittance tracking.</p>
+<p><strong>Fields:</strong> Bank name, Branch, Account holder, Account number,
+Account type (savings / current / corporate), IFSC (India), SWIFT and IBAN
+(international), Currency, Bank country. Mark one Primary; that becomes the
+default for payments to this partner.</p>
+<p>Account numbers are <strong>partially masked</strong> in lists for security
+(e.g. <code>•••••••1234</code>); the full number is shown only on the edit form.</p>
+
+<!-- ================== 6 ================== -->
+<h1>6. Product Management</h1>
+<p>Products, categories, and units of measure. Every line on a quotation, sales order,
+purchase order, or invoice picks a product from here.</p>
+
+<h2>6.1 Products (list)</h2>
+<p><strong>Sidebar:</strong> Product Management &rarr; Products</p>
+<p>Each row shows: code (SKU), name, type, category, default unit, HSN, tax %,
+cost, price, active flag.</p>
+<p><strong>Filters:</strong></p>
+<ul>
+  <li>Search (code / name / barcode / HSN)</li>
+  <li>Type (Raw / Finished / Packaging / Consumable / Service / Other)</li>
+  <li>Category</li>
+  <li>Status (Active / Inactive)</li>
+</ul>
+
+<h2>6.2 New / edit product — 4 tabs</h2>
+
+<h3>Tab 1 — General</h3>
+<table>
+  <tr><th>Identity</th><td>Code (SKU), Barcode, Name, Description</td></tr>
+  <tr><th>Classification</th><td>Type, Category, Default unit, "Made in-house" toggle</td></tr>
+  <tr><th>Tax</th><td>HSN / SAC code, Tax rate %</td></tr>
+  <tr><th>Tracking</th><td>Has batches, Has expiry, Has serials, Shelf life (days)</td></tr>
+  <tr><th>Flags</th><td>Active, Purchasable, Sellable, Stockable</td></tr>
+  <tr><th>Notes</th><td>Free-text</td></tr>
+</table>
+
+<h3>Tab 2 — Pricing &amp; Costing</h3>
+<table>
+  <tr><th>Costing</th><td>Standard cost, Last purchase cost, Opening stock qty &amp; value</td></tr>
+  <tr><th>Selling</th><td>Standard price, MRP, Currency</td></tr>
+</table>
+
+<h3>Tab 3 — Inventory</h3>
+<table>
+  <tr><th>Reorder rules</th><td>Reorder level (alert at), Reorder qty (how much to buy), Min &amp; Max stock, Lead time (days)</td></tr>
+  <tr><th>Dimensions</th><td>Weight + UoM, Length, Width, Height (used for shipping calc)</td></tr>
+</table>
+
+<h3>Tab 4 — UoM Conversions</h3>
+<p>(Unlocks after the product is saved.) Add alternate units that this product
+can be transacted in.</p>
+<p><strong>Example:</strong> the product's default unit is "kg". Add a conversion
+"1 drum = 50 kg" so you can purchase by drum and the system converts to kg
+internally for stock tracking.</p>
+<p>Per conversion line: alternate unit, conversion factor (× to base unit),
+"Purchase default" and "Sales default" toggles, Active flag.</p>
+
+<h2>6.3 Categories</h2>
+<p><strong>Sidebar:</strong> Product Management &rarr; Categories</p>
+<p>Hierarchical (tree). One company has its own category tree.</p>
+<p><strong>To create a child category:</strong> open the modal, pick a Parent
+from the dropdown, set Code + Name. Children indent under their parent in
+the list view.</p>
+<p>You can't delete a category that still has children or products — reassign
+or delete those first.</p>
+
+<h2>6.4 Units</h2>
+<p><strong>Sidebar:</strong> Product Management &rarr; Units</p>
+<p>Pre-seeded units for each company:</p>
+<table>
+  <tr><th>Type</th><th>Units</th></tr>
+  <tr><td>Weight</td><td>kg (base), g, mg</td></tr>
+  <tr><td>Volume</td><td>L (base), ml</td></tr>
+  <tr><td>Count</td><td>pcs (base), dozen, box, bag, drum</td></tr>
+  <tr><td>Length</td><td>m (base), cm</td></tr>
+</table>
+<p>For each unit: Code, Symbol, Type, "Is base unit" toggle (one base per type),
+Conversion factor (× to base — e.g. <code>g</code> has factor <code>0.001</code>),
+Decimals allowed (how many decimal places when entering qty).</p>
+
+<!-- ================== 7 ================== -->
+<h1>7. Inventory &amp; Stock</h1>
+<p>This is where you see and manage physical stock. Every stock movement
+(purchase receipts, sales dispatches, adjustments, transfers) creates a row in the
+<strong>Stock Ledger</strong> automatically.</p>
+
+<h2>7.1 Current stock</h2>
+<p><strong>Sidebar:</strong> Inventory &amp; Stock &rarr; Current stock</p>
+<p>A pivot view showing one row per <strong>(product × warehouse)</strong>
+combination with the current balance and value.</p>
+<p>The header shows <strong>Total stock value</strong> across the active company.</p>
+<p>Filter by warehouse to focus on one location. Click a row's expand arrow to see
+batches that make up the total (with batch numbers and expiry dates).</p>
+<div class="callout tip"><strong>Tip:</strong> If a row's balance is unexpectedly negative, look at the
+Stock Ledger filtered by that product to see which document drove it negative.</div>
+
+<h2>7.2 Stock ledger</h2>
+<p><strong>Sidebar:</strong> Inventory &amp; Stock &rarr; Stock ledger</p>
+<p>The complete history of every stock movement, newest first.</p>
+<p><strong>Columns:</strong> Posted at, Type, Reference, Product, Warehouse, Batch,
+Qty (signed), Balance after, Rate, Value.</p>
+<p><strong>Movement types:</strong></p>
+<table>
+  <tr><th>Type</th><th>Sign</th><th>Where it comes from</th></tr>
+  <tr><td><span class="badge b-grey">opening</span></td><td>+</td><td>Initial opening balance entries</td></tr>
+  <tr><td><span class="badge b-green">in</span></td><td>+</td><td>Purchase GRN, manufacturing output (future)</td></tr>
+  <tr><td><span class="badge b-red">out</span></td><td>−</td><td>Sales invoice posting, manufacturing consumption</td></tr>
+  <tr><td><span class="badge b-cyan">transfer_in</span></td><td>+</td><td>Receiving warehouse on a transfer</td></tr>
+  <tr><td><span class="badge b-orange">transfer_out</span></td><td>−</td><td>Sending warehouse on a transfer</td></tr>
+  <tr><td><span class="badge b-purple">adjustment</span></td><td>±</td><td>Manual stock adjustment after physical count, damage, etc.</td></tr>
+</table>
+<p>The ledger is <strong>append-only</strong> — rows are never edited or deleted.
+Cancellations create a <em>reversal</em> row marked with a red <span class="badge b-red">reversal</span>
+tag (and the original row gets a <span class="badge b-grey">reversed</span> tag).</p>
+<p><strong>Filters:</strong> reference search, product autocomplete, movement type,
+date range.</p>
+
+<h2>7.3 Adjustments</h2>
+<p><strong>Sidebar:</strong> Inventory &amp; Stock &rarr; Adjustments</p>
+<p>Use adjustments to correct stock after a physical count, write off damage,
+or record opening balances.</p>
+<p><strong>Workflow:</strong></p>
+<div class="step"><div class="n">1</div><div><strong>Draft</strong> — fill the form and save. Nothing posted yet.</div></div>
+<div class="step"><div class="n">2</div><div><strong>Submit</strong> — flag as ready for approval (cannot be edited after).</div></div>
+<div class="step"><div class="n">3</div><div><strong>Approve</strong> — system writes the ledger rows. The stock balance changes immediately.</div></div>
+<div class="step"><div class="n">4</div><div><strong>Cancel</strong> — at any step. If already approved, every ledger row gets a reversal.</div></div>
+<p><strong>The form:</strong> Warehouse, Adjustment date, Reason (Physical count, Damage, Expired, Theft, Production loss, Opening correction, Other), Notes.</p>
+<p><strong>Lines:</strong> for each product, enter the <em>current</em> qty (or leave 0) and the <em>counted</em> qty. The system computes the difference and applies it. Optional batch / expiry per line.</p>
+
+<h2>7.4 Transfers</h2>
+<p><strong>Sidebar:</strong> Inventory &amp; Stock &rarr; Transfers</p>
+<p>Move stock between warehouses (within the same company).</p>
+<p><strong>Workflow:</strong></p>
+<div class="step"><div class="n">1</div><div><strong>Draft</strong> — fill source warehouse, destination warehouse, lines.</div></div>
+<div class="step"><div class="n">2</div><div><strong>Send</strong> — system writes <em>transfer_out</em> at source. Goods now in transit.</div></div>
+<div class="step"><div class="n">3</div><div><strong>Receive</strong> — when goods arrive at destination, click Receive. System writes <em>transfer_in</em>. Done.</div></div>
+<div class="step"><div class="n">4</div><div><strong>Cancel</strong> — at any step. If already sent or received, all ledger rows get reversals.</div></div>
+<p>Source and destination must be different warehouses.</p>
+
+<!-- ================== 8 ================== -->
+<h1>8. Purchase</h1>
+<p>The procurement pipeline. Each step is a separate document that links to the
+previous one but is independent — you can also create any of them stand-alone.</p>
+
+<h2>8.1 Purchase Orders (PO)</h2>
+<p><strong>Sidebar:</strong> Purchase &rarr; Purchase orders</p>
+<p>A formal order placed with a supplier, before goods arrive.</p>
+<p><strong>The form:</strong> Supplier (autosuggest filtered to type=Supplier),
+Default destination warehouse, Order date, Expected date, Supplier reference,
+Notes.</p>
+<p><strong>Lines:</strong> product autosuggest (filtered to raw materials by default),
+Qty, Rate, Tax %. Subtotal / tax / total are auto-calculated.</p>
+<p><strong>Workflow:</strong> Draft &rarr; Approve &rarr; Partial / Received (set automatically as GRNs arrive) &rarr; Cancel.</p>
+<p><strong>The PO does not move stock</strong> — it's an intent document. Stock arrives via the GRN.</p>
+
+<h2>8.2 GRNs (Goods Receipt Note)</h2>
+<p><strong>Sidebar:</strong> Purchase &rarr; GRNs</p>
+<p>The document you create <strong>when the truck arrives at your warehouse</strong>.
+This is the document that <em>actually adds stock</em>.</p>
+<p><strong>The form:</strong> Supplier, Warehouse (destination), GRN date, Supplier
+invoice number, Supplier invoice date, Vehicle number, LR (transporter receipt) number, Notes.</p>
+<p><strong>Lines:</strong> product, qty received, rate, <strong>batch number</strong>,
+<strong>expiry date</strong>, manufacturing date, serial number (where applicable).</p>
+<p><strong>Workflow:</strong></p>
+<div class="step"><div class="n">1</div><div><strong>Draft</strong> — fill from the truck. Doesn't move stock yet.</div></div>
+<div class="step"><div class="n">2</div><div><strong>Receive</strong> — system writes <em>stock IN</em> for every line. The matched PO line's "received qty" goes up. The PO becomes Partial or Received accordingly.</div></div>
+<div class="step"><div class="n">3</div><div><strong>Cancel</strong> — reverses every stock IN row.</div></div>
+
+<h2>8.3 Purchase Invoices (PI)</h2>
+<p><strong>Sidebar:</strong> Purchase &rarr; Purchase invoices</p>
+<p>The supplier's bill — the document that creates an <strong>amount payable</strong>
+to that supplier.</p>
+<p><strong>The form:</strong> Supplier, Supplier invoice number, Invoice date, Due date,
+Notes.</p>
+<p><strong>Lines:</strong> product, qty, rate, tax % — totals computed automatically.</p>
+<p><strong>Workflow:</strong> Draft &rarr; Post &rarr; Partially paid / Paid (as supplier payments are recorded — Finance module, future).</p>
+<p>The PI does not affect stock — that already happened on the GRN.</p>
+
+<!-- ================== 9 ================== -->
+<h1>9. Sales</h1>
+<p>The selling pipeline: <strong>Quotation &rarr; Sales Order &rarr; Invoice &rarr; Payment</strong>.</p>
+
+<h2>9.1 Quotations</h2>
+<p><strong>Sidebar:</strong> Sales &rarr; Quotations</p>
+<p>A formal price offer to a prospective customer. No stock or accounting impact.</p>
+<p><strong>The form:</strong> Client (autosuggest), Quotation date, Valid until,
+Reference, Terms &amp; conditions, Notes.</p>
+<p><strong>Lines:</strong> product, qty, rate, tax %, line discount %.</p>
+<p><strong>Workflow:</strong></p>
+<ul>
+  <li><strong>Draft &rarr; Approve</strong> — when finalized.</li>
+  <li><strong>Convert to SO</strong> — once the customer accepts. Creates a Sales Order with the same lines and links the two documents.</li>
+  <li><strong>Cancel</strong> — at any step before conversion.</li>
+</ul>
+<p>A converted quotation displays a green "→ SO #X" tag in the list and can no longer be edited.</p>
+
+<h2>9.2 Sales Orders (SO)</h2>
+<p><strong>Sidebar:</strong> Sales &rarr; Sales orders</p>
+<p>A confirmed order from a customer. Drives production and dispatch planning.</p>
+<p><strong>The form:</strong> Client, Ship-from warehouse, Order date, Expected
+delivery date, Client PO number, Terms, Notes.</p>
+<p><strong>Workflow:</strong> Draft &rarr; Approved &rarr; In production / Partial / Invoiced &rarr; Cancelled.</p>
+<p><strong>Create invoice from SO:</strong> on an approved SO, click <strong>Create invoice</strong>.
+The invoice form opens with the SO data prefilled and remaining (un-invoiced) lines pre-populated.</p>
+<p>The SO does not affect stock — invoices do.</p>
+
+<h2>9.3 Invoices &amp; payments</h2>
+<p><strong>Sidebar:</strong> Sales &rarr; Invoices</p>
+<p>The customer's bill — the document that <em>removes stock</em> and creates a <em>receivable</em>.</p>
+<p><strong>The form:</strong> Client, Sales Order (optional link), Ship-from warehouse,
+Invoice date, Due date, Reference, Terms, Notes.</p>
+<p><strong>Lines:</strong> product, qty, rate, tax %, <strong>batch number</strong>, <strong>expiry date</strong>.</p>
+<p><strong>Workflow:</strong></p>
+<div class="step"><div class="n">1</div><div><strong>Draft</strong> — review and edit freely.</div></div>
+<div class="step"><div class="n">2</div><div><strong>Post</strong> — system writes <em>stock OUT</em> for every line. Invoice now has a balance due.</div></div>
+<div class="step"><div class="n">3</div><div><strong>Record payment</strong> — opens a modal: amount, date, mode (Bank / Cash / Cheque / UPI / Card), reference (cheque #, UTR). Status auto-updates to <em>Partially paid</em> or <em>Paid</em>.</div></div>
+<div class="step"><div class="n">4</div><div><strong>Cancel</strong> — reverses the stock OUT and marks the invoice cancelled.</div></div>
+<p>Multiple payments can be recorded against one invoice. Deleting a payment subtracts from paid amount and re-evaluates status.</p>
+
+<!-- ================== 10 ================== -->
+<h1>10. Users &amp; Roles</h1>
+<p>Manage who has access to the system and what they can do.</p>
+
+<h2>10.1 Users</h2>
+<p><strong>Sidebar:</strong> Users &amp; Roles &rarr; Users</p>
+<p><strong>List columns:</strong> Name, Email, Phone, Roles (badges), Active toggle, Last login.</p>
+<p><strong>Filters:</strong> Search, Role, Status.</p>
+<p><strong>New user form:</strong></p>
+<table>
+  <tr><th>Identity</th><td>Name, Email (unique), Phone</td></tr>
+  <tr><th>Locale</th><td>Language, Timezone</td></tr>
+  <tr><th>Password</th><td>Set the initial password. Confirm it.</td></tr>
+  <tr><th>Roles</th><td>Pick one or more roles (super-admin, admin, manager, viewer, or any custom).</td></tr>
+  <tr><th>Flags</th><td>Active, Force password change on first login</td></tr>
+</table>
+<p>Editing an existing user lets you change roles, contact info, locale — but not the password directly. Use <strong>Reset password</strong> action for that (sends a forced change on next login).</p>
+
+<h2>10.2 Roles</h2>
+<p><strong>Sidebar:</strong> Users &amp; Roles &rarr; Roles</p>
+<p><strong>Pre-seeded roles:</strong></p>
+<table>
+  <tr><th>Role</th><th>Typical use</th></tr>
+  <tr><td><span class="badge b-purple">super-admin</span></td><td>System owner. Bypasses all permission checks.</td></tr>
+  <tr><td><span class="badge b-blue">admin</span></td><td>Full operational access — can create / approve in every module.</td></tr>
+  <tr><td><span class="badge b-cyan">manager</span></td><td>Read everywhere; create &amp; update most documents but not delete.</td></tr>
+  <tr><td><span class="badge b-grey">viewer</span></td><td>Read-only across the entire app.</td></tr>
+</table>
+<p><strong>Creating a custom role:</strong> click <strong>+ New role</strong>, give
+it a lowercase name (letters / numbers / dashes only — e.g. <code>sales-manager</code>),
+optional description, and tick the permissions to grant. Permissions are grouped
+by module; you can tick a whole group at once.</p>
+<p><strong>System roles</strong> (super-admin, admin, manager, viewer) cannot be
+renamed or deleted, but you can adjust their permissions.</p>
+
+<!-- ================== 11 ================== -->
+<h1>11. System</h1>
+
+<h2>11.1 Settings</h2>
+<p><strong>Sidebar:</strong> System &rarr; Settings</p>
+<p>Key/value configuration values that drive defaults across the app.</p>
+<p>Settings are <strong>grouped</strong> (General, Finance, Documents, Mail, etc.).
+Each row shows a label, the key, and an inline editor sized to the value type
+(text, number, toggle, dropdown).</p>
+<p>Examples seeded out of the box:</p>
+<ul>
+  <li>Default currency (INR)</li>
+  <li>Date format, Time format, Locale</li>
+  <li>Default payment terms (days)</li>
+  <li>"Prices include tax by default" toggle</li>
+  <li>Invoice footer text</li>
+  <li>"Send quotation by email by default" toggle</li>
+</ul>
+<p>Changes save individually — each row has its own Save button.</p>
+
+<h2>11.2 Sequences</h2>
+<p><strong>Sidebar:</strong> System &rarr; Sequences</p>
+<p>Document numbering rules. Each row is one document type per company.</p>
+<p><strong>Pre-seeded sequences (per company):</strong></p>
+<div class="pill-row">
+  <span class="pill">QT — Quotation</span>
+  <span class="pill">SO — Sales Order</span>
+  <span class="pill">INV — Invoice</span>
+  <span class="pill">CN — Credit Note</span>
+  <span class="pill">PO — Purchase Order</span>
+  <span class="pill">GRN — GRN</span>
+  <span class="pill">PI — Purchase Invoice</span>
+  <span class="pill">BT — Production Batch</span>
+  <span class="pill">SB — Shipping Bill</span>
+  <span class="pill">EI — Export Invoice</span>
+  <span class="pill">ICI — Inter-Company Invoice</span>
+  <span class="pill">ADJ — Stock Adjustment</span>
+  <span class="pill">TRF — Stock Transfer</span>
+</div>
+<p>Each sequence has:</p>
+<table>
+  <tr><th>Prefix</th><td>Letters at the start (e.g. <code>SO</code>)</td></tr>
+  <tr><th>Format</th><td>Pattern using tokens like <code>{prefix}</code>, <code>{year}</code>, <code>{month}</code>, <code>{number}</code>. Default <code>{prefix}/{year}/{number}</code> &rarr; <code>SO/2026/00001</code></td></tr>
+  <tr><th>Padding</th><td>Number of digits in the counter (5 = <code>00001</code>)</td></tr>
+  <tr><th>Reset period</th><td>Never / Yearly (resets to 1 each Jan 1) / Monthly (resets each 1st)</td></tr>
+  <tr><th>Current number</th><td>Last issued number; the next document gets this + 1</td></tr>
+</table>
+<p>The <strong>Next preview</strong> column shows what the next document number will look like — handy when changing format.</p>
+
+<h2>11.3 Audit log</h2>
+<p><strong>Sidebar:</strong> System &rarr; Audit log</p>
+<p>Every create / update / delete on every important record is logged here.</p>
+<p>Each row shows: when, what event (created / updated / deleted), what type of
+record, what description, and which user did it.</p>
+<p><strong>Filters:</strong> search description, event type, date range.</p>
+<p>Click <strong>View</strong> on any row to open a side drawer showing the full
+properties JSON — useful to see exactly which fields changed.</p>
+
+<!-- ================== 12 ================== -->
+<h1>12. End-to-end workflows</h1>
+
+<h2>12.1 Buying raw material from a supplier</h2>
+<div class="step"><div class="n">1</div><div><strong>Confirm the supplier exists.</strong> CRM &rarr; Partners. If not, create one with type = Supplier.</div></div>
+<div class="step"><div class="n">2</div><div><strong>Create the Purchase Order.</strong> Purchase &rarr; Purchase orders &rarr; + New PO. Pick the supplier, target warehouse, add lines (product / qty / rate / tax). Save &rarr; Approve.</div></div>
+<div class="step"><div class="n">3</div><div><strong>Truck arrives.</strong> Purchase &rarr; GRNs &rarr; + New GRN. Pick the same supplier and warehouse, fill supplier invoice number, vehicle, LR. Add lines with batch numbers and expiry dates. Save.</div></div>
+<div class="step"><div class="n">4</div><div><strong>Click Receive.</strong> System writes stock IN to the ledger. The PO updates from Approved &rarr; Partial or Received.</div></div>
+<div class="step"><div class="n">5</div><div><strong>Verify stock.</strong> Inventory &amp; Stock &rarr; Current stock — your raw material should be there.</div></div>
+<div class="step"><div class="n">6</div><div><strong>(Optional) Record the supplier bill.</strong> Purchase &rarr; Purchase invoices &rarr; + New PI. Pick supplier, fill the supplier invoice number, save &rarr; Post. Now you have a payable on file.</div></div>
+
+<h2>12.2 Quoting and selling to a customer</h2>
+<div class="step"><div class="n">1</div><div><strong>Send a quote.</strong> Sales &rarr; Quotations &rarr; + New quotation. Pick the client, add lines (finished products), save &rarr; Approve.</div></div>
+<div class="step"><div class="n">2</div><div><strong>Customer accepts.</strong> Open the approved quotation &rarr; click <strong>Convert to SO</strong>. The Sales Order opens prefilled.</div></div>
+<div class="step"><div class="n">3</div><div><strong>Approve the SO.</strong> The order is now firm and ready for dispatch / production.</div></div>
+<div class="step"><div class="n">4</div><div><strong>Bill the customer.</strong> On the SO, click <strong>Create invoice</strong>. The invoice opens with lines prefilled. Add batch numbers and expiry on each line. Save &rarr; <strong>Post</strong> &mdash; this writes stock OUT.</div></div>
+<div class="step"><div class="n">5</div><div><strong>Customer pays.</strong> Open the invoice &rarr; <strong>Record payment</strong> &rarr; enter amount, date, mode (e.g. Bank), reference (UTR). Status flips to Partially paid or Paid.</div></div>
+<div class="step"><div class="n">6</div><div><strong>Verify.</strong> Inventory &amp; Stock &rarr; Current stock — the finished goods balance has dropped. The Sales Order is now <em>Invoiced</em>. The audit log has every step on record.</div></div>
+
+<h2>12.3 Adjusting stock after a count</h2>
+<div class="step"><div class="n">1</div><div><strong>Inventory &amp; Stock &rarr; Adjustments &rarr; + New adjustment.</strong></div></div>
+<div class="step"><div class="n">2</div><div>Pick the warehouse, set Reason = "Physical count", date = today.</div></div>
+<div class="step"><div class="n">3</div><div>Add lines: for each product whose count differs, enter the <em>current</em> qty (what the system shows now) and the <em>counted</em> qty (what you actually counted). Difference auto-calculates.</div></div>
+<div class="step"><div class="n">4</div><div>Save &rarr; <strong>Submit</strong> &rarr; <strong>Approve</strong> (a separate person should approve, ideally). Stock is now corrected.</div></div>
+
+<h2>12.4 Transferring stock between warehouses</h2>
+<div class="step"><div class="n">1</div><div><strong>Inventory &amp; Stock &rarr; Transfers &rarr; + New transfer.</strong> Pick source and destination warehouses.</div></div>
+<div class="step"><div class="n">2</div><div>Add the lines with qty and (if relevant) batch numbers. Save.</div></div>
+<div class="step"><div class="n">3</div><div>When the goods leave the source: click <strong>Send</strong>. Stock goes out of source.</div></div>
+<div class="step"><div class="n">4</div><div>When goods arrive at destination: click <strong>Receive</strong>. Stock comes in at destination. Done.</div></div>
+
+<h2>12.5 Working across both companies</h2>
+<p>Each company is fully isolated by default — partners, products, stock, and
+documents in Company A do not affect Company B. To work in the other company:</p>
+<ol>
+  <li>Click the company switcher in the top bar.</li>
+  <li>Select the other company.</li>
+  <li>The page reloads. You're now in the other company's data.</li>
+</ol>
+<p>If a partner or product needs to exist in <em>both</em> companies, create it
+twice (once per company). A future Inter-Company Billing module will let
+Company B invoice Company A automatically.</p>
+
+<!-- ================== 13 ================== -->
+<h1>13. Document statuses — what they mean</h1>
+<table>
+  <tr><th>Status</th><th>Meaning</th><th>Can edit?</th></tr>
+  <tr><td><span class="badge b-grey">draft</span></td><td>Being prepared. Nothing has happened yet.</td><td>Yes</td></tr>
+  <tr><td><span class="badge b-blue">submitted</span></td><td>Sent for approval (some modules).</td><td>Sometimes</td></tr>
+  <tr><td><span class="badge b-cyan">approved</span></td><td>Authorized. Ready to act on (e.g. ready to receive a PO, ready to invoice an SO).</td><td>No</td></tr>
+  <tr><td><span class="badge b-orange">partial</span></td><td>Partially fulfilled — some but not all lines received / invoiced.</td><td>No</td></tr>
+  <tr><td><span class="badge b-blue">posted</span></td><td>Invoice committed; stock and balances updated.</td><td>No</td></tr>
+  <tr><td><span class="badge b-orange">sent</span></td><td>Transfer is in transit — left source, not yet arrived.</td><td>No</td></tr>
+  <tr><td><span class="badge b-green">received</span></td><td>Goods arrived (GRN) or full transfer complete.</td><td>No</td></tr>
+  <tr><td><span class="badge b-gold">partially_paid</span></td><td>Some payment recorded, balance remaining.</td><td>No</td></tr>
+  <tr><td><span class="badge b-green">paid</span></td><td>Fully paid.</td><td>No</td></tr>
+  <tr><td><span class="badge b-green">converted</span></td><td>Quotation has been turned into a Sales Order.</td><td>No</td></tr>
+  <tr><td><span class="badge b-green">invoiced</span></td><td>Sales Order has been fully invoiced.</td><td>No</td></tr>
+  <tr><td><span class="badge b-red">cancelled</span></td><td>Voided. If stock had been moved, it's been reversed.</td><td>No</td></tr>
+</table>
+<div class="callout warn">
+<strong>Once a document leaves draft, it can no longer be edited.</strong> If you need
+to change something, cancel and create a new one. Cancellations create a
+permanent audit trail (and stock reversals where applicable) — the system never
+silently rewrites history.
+</div>
+
+<!-- ================== 14 ================== -->
+<h1>14. Frequently asked questions &amp; tips</h1>
+
+<h3>I can't find a record I just created — where is it?</h3>
+<p>Check the <strong>company switcher</strong> in the top bar. Each company has
+its own separate data. Records you create in Company A won't appear when you're
+viewing Company B (and vice versa).</p>
+
+<h3>Why can't I edit this document?</h3>
+<p>Most documents become read-only once they leave the <em>draft</em> status.
+Look at the colored status tag at the top of the form. If it's anything other
+than <em>draft</em> (or sometimes <em>submitted</em>), the document is locked.
+Cancel and create a new one if you need to change something.</p>
+
+<h3>How do I undo a posted invoice / received GRN / approved adjustment?</h3>
+<p>Click the <strong>Cancel</strong> button. The system creates a <em>reversal</em>
+in the stock ledger so the books balance — both rows remain in history, marked.
+This keeps the audit trail honest.</p>
+
+<h3>Can I delete a partner / product?</h3>
+<p>Yes (with the trash icon), <em>provided</em> it isn't referenced by any
+documents. If it is, deactivate it instead — that prevents new use without
+breaking historical data.</p>
+
+<h3>How do I see who changed what and when?</h3>
+<p>System &rarr; Audit log. Every create, update, and delete on every important
+record is logged with the user, timestamp, and the fields that changed.</p>
+
+<h3>The list is empty but I'm sure data exists. What now?</h3>
+<p>Check, in this order:</p>
+<ol>
+  <li>The active company in the top bar.</li>
+  <li>Any active filters at the top of the list (Type, Status, Search).</li>
+  <li>Click <strong>Refresh</strong> in case the data was just added.</li>
+</ol>
+
+<h3>How do I assign a user to a specific company only?</h3>
+<p>Currently the seeded admin is attached to both companies. To restrict a user,
+edit their profile and set their default company; their access scope follows
+their assigned companies. (More fine-grained per-company permissions arrive in
+a later release.)</p>
+
+<h3>Tips that save time</h3>
+<ul>
+  <li><strong>Auto-suggest:</strong> on partner / product fields, just start typing — the dropdown filters live.</li>
+  <li><strong>Approve in two clicks:</strong> Save &rarr; Approve. Most documents have these buttons next to each other.</li>
+  <li><strong>Convert button:</strong> on an approved Quotation, the green "Convert to SO" button is the fastest way to start a sales order.</li>
+  <li><strong>Create invoice from SO:</strong> on an approved Sales Order, the "Create invoice" button prefills lines from the SO — far faster than typing them again.</li>
+  <li><strong>Recompute totals:</strong> totals on every document refresh as soon as you change a qty or rate. No "Recalculate" button needed.</li>
+  <li><strong>Press <span class="kbd">Esc</span></strong> in any modal to close it without saving.</li>
+</ul>
+
+<!-- ================== APPENDIX ================== -->
+<h1>Appendix — Sidebar map</h1>
+<table>
+  <tr><th>Group</th><th>Sub-menu</th><th>What it's for</th></tr>
+  <tr><td rowspan="1">Dashboard</td><td>—</td><td>Landing page after sign-in</td></tr>
+  <tr><td rowspan="1">Company Management</td><td>Companies</td><td>Master list of legal entities, with branches and warehouses underneath</td></tr>
+  <tr><td rowspan="1">CRM</td><td>Partners</td><td>Clients, suppliers, manufacturers — single contact master</td></tr>
+  <tr><td rowspan="3">Product Management</td><td>Products</td><td>SKU master with HSN, pricing, costing, inventory parameters</td></tr>
+  <tr><td>Categories</td><td>Hierarchical product categorization</td></tr>
+  <tr><td>Units</td><td>Units of measure with conversions to the base unit per type</td></tr>
+  <tr><td rowspan="4">Inventory &amp; Stock</td><td>Current stock</td><td>Live balance per product per warehouse, plus total valuation</td></tr>
+  <tr><td>Stock ledger</td><td>Append-only history of every stock movement</td></tr>
+  <tr><td>Adjustments</td><td>Manual stock corrections (count differences, damage, write-offs)</td></tr>
+  <tr><td>Transfers</td><td>Move stock between warehouses with send/receive lifecycle</td></tr>
+  <tr><td rowspan="3">Purchase</td><td>Purchase orders</td><td>Formal order to a supplier (no stock impact)</td></tr>
+  <tr><td>GRNs</td><td>Goods receipt — adds stock to a warehouse</td></tr>
+  <tr><td>Purchase invoices</td><td>Supplier bill — creates a payable</td></tr>
+  <tr><td rowspan="3">Sales</td><td>Quotations</td><td>Price offer to a customer (convertible to SO)</td></tr>
+  <tr><td>Sales orders</td><td>Confirmed customer order (no stock impact yet)</td></tr>
+  <tr><td>Invoices</td><td>Customer bill — removes stock and creates a receivable; supports payments</td></tr>
+  <tr><td rowspan="2">Users &amp; Roles</td><td>Users</td><td>Individual accounts with email + roles</td></tr>
+  <tr><td>Roles</td><td>Named permission sets (super-admin, admin, manager, viewer, plus custom)</td></tr>
+  <tr><td rowspan="3">System</td><td>Settings</td><td>Global key/value defaults grouped by area</td></tr>
+  <tr><td>Sequences</td><td>Auto-numbering rules per document type per company</td></tr>
+  <tr><td>Audit log</td><td>Searchable history of every create / update / delete</td></tr>
+</table>
+
+<div style="height:20mm"></div>
+<p class="center small">— End of User Manual —</p>
+
+</body>
+</html>

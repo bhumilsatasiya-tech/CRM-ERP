@@ -1,0 +1,8 @@
+{
+    "name": "Reports",
+    "module_number": "6.4",
+    "alias": "reports",
+    "description": "Read-only reports: sales/purchase register, stock summary, production summary, AR/AP, P&L, Balance Sheet, Export Realization. No new tables.",
+    "providers": ["Modules\\Reports\\Providers\\ReportsServiceProvider"],
+    "depends_on": ["Sales", "Purchase", "Inventory", "Production", "Finance", "Export", "Irm"]
+}

@@ -1,0 +1,1 @@
+export { projectsPrivateRoutes } from './routes';

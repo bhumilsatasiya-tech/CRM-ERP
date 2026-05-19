@@ -1,0 +1,8 @@
+{
+    "name": "Hr",
+    "module_number": "5.3",
+    "alias": "hr",
+    "description": "Employees, Designations, Salary Components + Structures, monthly Salary Runs producing Payslips. Posts fire SalaryRunPosted event for Finance auto-journal.",
+    "providers": ["Modules\\Hr\\Providers\\HrServiceProvider"],
+    "depends_on": ["Auth", "Companies", "Settings"]
+}

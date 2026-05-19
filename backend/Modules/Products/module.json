@@ -1,0 +1,11 @@
+{
+    "name": "Products",
+    "module_number": "2.2",
+    "menu_number": 4,
+    "alias": "products",
+    "description": "Product master with categories (tree), units of measure, UoM conversions, HSN/tax, pricing, costing, inventory flags. Foundation for every line item across quotations, sales orders, invoices, batches, and stock.",
+    "keywords": ["products", "categories", "units", "uom", "sku", "hsn", "inventory"],
+    "priority": 4,
+    "providers": ["Modules\\Products\\Providers\\ProductsServiceProvider"],
+    "depends_on": ["Auth", "Companies", "Settings"]
+}

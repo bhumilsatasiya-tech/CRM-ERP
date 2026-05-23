@@ -54,6 +54,14 @@ export const sequenceApi = {
       .then((r) => r.data.data),
 };
 
+export const deployApi = {
+  status: () =>
+    apiClient.get<{ data: { script_exists: boolean; script_path: string; app_env: string } }>('/deploy/status').then((r) => r.data.data),
+
+  trigger: () =>
+    apiClient.post<{ data: { success: boolean; message: string; log: string } }>('/deploy/trigger').then((r) => r.data.data),
+};
+
 export const auditLogApi = {
   list: (
     params: {

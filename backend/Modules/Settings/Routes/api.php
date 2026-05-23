@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Modules\Settings\Http\Controllers\AuditLogController;
+use Modules\Settings\Http\Controllers\DeployController;
 use Modules\Settings\Http\Controllers\SequencesController;
 use Modules\Settings\Http\Controllers\SettingsController;
 
@@ -23,4 +24,8 @@ Route::prefix('v1')->name('api.v1.')->middleware('auth:sanctum')->group(function
     // Audit log (read-only)
     Route::get('audit-logs', [AuditLogController::class, 'index'])->name('audit-logs.index');
     Route::get('audit-logs/{id}', [AuditLogController::class, 'show'])->name('audit-logs.show');
+
+    // Deploy (super-admin only)
+    Route::get('deploy/status',  [DeployController::class, 'status'])->name('deploy.status');
+    Route::post('deploy/trigger', [DeployController::class, 'trigger'])->name('deploy.trigger');
 });

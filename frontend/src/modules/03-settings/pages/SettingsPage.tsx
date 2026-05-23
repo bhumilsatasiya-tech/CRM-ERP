@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
-import { Button, Card, Collapse, Descriptions, Input, Select, Space, Switch, Tag, Typography, message } from 'antd';
-import { ReloadOutlined } from '@ant-design/icons';
-import { settingsApi } from '../api/settingsApi';
+import { Alert, Button, Card, Collapse, Descriptions, Input, Modal, Select, Space, Switch, Tag, Typography, message } from 'antd';
+import { CloudUploadOutlined, ReloadOutlined } from '@ant-design/icons';
+import { deployApi, settingsApi } from '../api/settingsApi';
+import { useAppSelector } from '../../../app/hooks';
 import type { Setting } from '../types/settings.types';
 
 function SettingValueEditor({ setting, onSave }: { setting: Setting; onSave: (v: unknown) => Promise<void> }) {
@@ -76,6 +77,83 @@ function SettingValueEditor({ setting, onSave }: { setting: Setting; onSave: (v:
   }
 }
 
+function DeployPanel() {
+  const user = useAppSelector((s) => s.auth.user);
+  const isSuperAdmin = user?.roles?.includes('super-admin');
+  const [deploying, setDeploying] = useState(false);
+  const [log, setLog] = useState('');
+  const [logVisible, setLogVisible] = useState(false);
+
+  if (!isSuperAdmin) return null;
+
+  const handleDeploy = () => {
+    Modal.confirm({
+      title: 'Deploy to Production',
+      content: 'This will pull latest code from GitHub, run migrations, and rebuild the frontend. Continue?',
+      okText: 'Deploy',
+      okType: 'primary',
+      onOk: async () => {
+        setDeploying(true);
+        setLog('');
+        try {
+          const res = await deployApi.trigger();
+          setLog(res.log ?? '');
+          setLogVisible(true);
+          if (res.success) {
+            message.success('Deploy complete!');
+          } else {
+            message.error('Deploy failed — check the log below.');
+          }
+        } catch (err: unknown) {
+          const e = err as { response?: { data?: { log?: string; message?: string } } };
+          const errLog = e?.response?.data?.log ?? e?.response?.data?.message ?? 'Unknown error';
+          setLog(errLog);
+          setLogVisible(true);
+          message.error('Deploy failed.');
+        } finally {
+          setDeploying(false);
+        }
+      },
+    });
+  };
+
+  return (
+    <Card
+      title={<Space><CloudUploadOutlined style={{ color: '#1677ff' }} /><span>Deploy</span></Space>}
+      style={{ borderColor: '#1677ff22' }}
+    >
+      <Space direction="vertical" style={{ width: '100%' }}>
+        <Typography.Text type="secondary">
+          Pulls the latest code from the <strong>main</strong> branch on GitHub, runs migrations,
+          rebuilds the frontend, and restarts workers — all in one click.
+        </Typography.Text>
+        <Alert
+          type="info"
+          showIcon
+          message="The server must have the deploy script at /var/www/crm-erp/scripts/deploy.sh"
+        />
+        <Button
+          type="primary"
+          icon={<CloudUploadOutlined />}
+          loading={deploying}
+          onClick={handleDeploy}
+          size="large"
+        >
+          {deploying ? 'Deploying...' : 'Deploy to Production'}
+        </Button>
+        {logVisible && log && (
+          <Input.TextArea
+            value={log}
+            readOnly
+            rows={16}
+            style={{ fontFamily: 'monospace', fontSize: 12, background: '#0d1117', color: '#c9d1d9' }}
+          />
+        )}
+      </Space>
+    </Card>
+  );
+}
+
 export default function SettingsPage() {
   const [list, setList] = useState<Setting[]>([]);
   const [loading, setLoading] = useState(false);
@@ -145,6 +223,8 @@ export default function SettingsPage() {
           }))}
         />
         {loading && <Typography.Text type="secondary">Loading…</Typography.Text>}
+
+        <DeployPanel />
       </Space>
     </Card>
   );

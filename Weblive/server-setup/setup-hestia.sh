@@ -7,6 +7,7 @@
 #                        ^^ your domain            ^^ your HestiaCP username
 # =============================================================================
 set -euo pipefail
+export DEBIAN_FRONTEND=noninteractive
 
 DOMAIN="${1:-diamond.harjinatural.com}"
 HESTIA_USER="${2:-admin}"
